@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>روز شمار کنکور</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <style>
+
+    body {
+      transition: background-color 0.5s ease-in-out;
+      background-color: #172738;
+     }
+
+    .konkur-countdown {
+      background-color: #17304c;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      text-align: center;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .time {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      font-weight: bold;
+      color: #00eda5;
+    }
+
+    .time-divider {
+      margin: 0 10px;
+      color: #fff;
+    }
+
+    .countdown-txt {
+      font-size: 16px;
+      color: #fff;
+    }
+
+    .progress {
+      height: 25px;
+      margin-top: 15px;
+    }
+
+    .progress-bar {
+      background-color: #00eda5;
+    }
+
+    .end-time {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #6c757d;
+    }
+
+    .progress {
+      background-color: #677f97;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-12 col-lg-8">
+        <div class="konkur-countdown">
+          <p class="title">زمان باقی مانده تا کنکور اردیبهشت 1403</p>
+          <div id="ordibehesht-time" class="time">
+            <div><span id="ordibehesht-day" class="number"></span><span>d</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="ordibehesht-hour" class="number"></span><span>h</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="ordibehesht-min" class="number"></span><span>m</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="ordibehesht-second" class="number"></span><span>s</span></div>
+          </div>
+          <div id="ordibehesht-countdown-txt" class="countdown-txt my-4">
+            <span id="ordibehesht-konkur_percentage"></span>
+          </div>
+          <div class="progress">
+            <div id="ordibehesht-bar_percentage" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="ordibehesht-end-time" class="end-time"></div>
+        </div>
+
+        <div class="konkur-countdown mt-5">
+          <p class="title">زمان باقی مانده تا امتحانات نهایی 1403</p>
+          <div id="final-exam-time" class="time">
+            <div><span id="final-exam-day" class="number"></span><span>d</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="final-exam-hour" class="number"></span><span>h</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="final-exam-min" class="number"></span><span>m</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="final-exam-second" class="number"></span><span>s</span></div>
+          </div>
+          <div id="final-exam-countdown-txt" class="countdown-txt my-4">
+            <span id="final-exam-konkur_percentage"></span>
+          </div>
+          <div class="progress">
+            <div id="final-exam-bar_percentage" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="final-exam-end-time" class="end-time"></div>
+        </div>
+
+        <div class="konkur-countdown mt-5">
+          <p class="title">زمان باقی مانده تا کنکور تیرماه 1403</p>
+          <div id="tir-time" class="time">
+            <div><span id="tir-day" class="number"></span><span>d</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="tir-hour" class="number"></span><span>h</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="tir-min" class="number"></span><span>m</span></div>
+            <span class="time-divider">:</span>
+            <div><span id="tir-second" class="number"></span><span>s</span></div>
+          </div>
+          <div id="tir-countdown-txt" class="countdown-txt my-4">
+            <span id="tir-konkur_percentage"></span>
+          </div>
+          <div class="progress">
+            <div id="tir-bar_percentage" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div id="tir-end-time" class="end-time"></div>
+          <div class="mt-3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+function updateOrdibeheshtCountdown() {
+  var secondElement = document.getElementById('ordibehesht-second');
+  var minElement = document.getElementById('ordibehesht-min');
+  var hourElement = document.getElementById('ordibehesht-hour');
+  var dayElement = document.getElementById('ordibehesht-day');
+  var konkurPercentageElement = document.getElementById('ordibehesht-konkur_percentage');
+  var barPercentageElement = document.getElementById('ordibehesht-bar_percentage');
+  var endTimeElement = document.getElementById('ordibehesht-end-time');
+
+  var startDate = new Date("2023-09-23T08:00:00").getTime();
+  var endDate = new Date("2024-04-26T08:00:00").getTime();
+  var currentTime = new Date().getTime();
+
+  var remainingTime = endDate - currentTime;
+  var totalTime = endDate - startDate;
+  
+  // Ensure remainingTime is within bounds
+  remainingTime = Math.max(remainingTime, 0);
+  
+  var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
+  var remainingPercentage = 100 - elapsedPercentage;
+
+  var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+  dayElement.textContent = days;
+  hourElement.textContent = hours;
+  minElement.textContent = minutes;
+  secondElement.textContent = seconds;
+
+  konkurPercentageElement.textContent = remainingPercentage.toFixed(2) + "% از زمان شما باقی مانده";
+  barPercentageElement.style.width = remainingPercentage + "%";
+
+  endTimeElement.textContent = new Date("2024-04-26T08:00:00").toLocaleString();
+
+  if (remainingTime <= 0) {
+    clearInterval(ordibeheshtInterval);
+    dayElement.textContent = 0;
+    hourElement.textContent = 0;
+    minElement.textContent = 0;
+    secondElement.textContent = 0;
+    konkurPercentageElement.textContent = "زمان به پایان رسیده است";
+    barPercentageElement.style.width = "100%";
+  }
+}
+
+function updateTirCountdown() {
+  var secondElement = document.getElementById('tir-second');
+  var minElement = document.getElementById('tir-min');
+  var hourElement = document.getElementById('tir-hour');
+  var dayElement = document.getElementById('tir-day');
+  var konkurPercentageElement = document.getElementById('tir-konkur_percentage');
+  var barPercentageElement = document.getElementById('tir-bar_percentage');
+  var endTimeElement = document.getElementById('tir-end-time');
+
+  var startDate = new Date("2023-09-23T08:00:00").getTime();
+  var endDate = new Date("2024-06-27T08:00:00").getTime();
+  var currentTime = new Date().getTime();
+
+  var remainingTime = endDate - currentTime;
+  var totalTime = endDate - startDate;
+  
+  // Ensure remainingTime is within bounds
+  remainingTime = Math.max(remainingTime, 0);
+  
+  var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
+  var remainingPercentage = 100 - elapsedPercentage;
+
+  var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+  dayElement.textContent = days;
+  hourElement.textContent = hours;
+  minElement.textContent = minutes;
+  secondElement.textContent = seconds;
+
+  konkurPercentageElement.textContent = remainingPercentage.toFixed(2) + "% از زمان شما باقی مانده";
+  barPercentageElement.style.width = remainingPercentage + "%";
+
+  endTimeElement.textContent = new Date("2024-06-27T08:00:00").toLocaleString();
+
+  if (remainingTime <= 0) {
+    clearInterval(tirInterval);
+    dayElement.textContent = 0;
+    hourElement.textContent = 0;
+    minElement.textContent = 0;
+    secondElement.textContent = 0;
+    konkurPercentageElement.textContent = "زمان به پایان رسیده است";
+    barPercentageElement.style.width = "100%";
+  }
+}
+
+function updateFinalExamCountdown() {
+  var secondElement = document.getElementById('final-exam-second');
+  var minElement = document.getElementById('final-exam-min');
+  var hourElement = document.getElementById('final-exam-hour');
+  var dayElement = document.getElementById('final-exam-day');
+  var konkurPercentageElement = document.getElementById('final-exam-konkur_percentage');
+  var barPercentageElement = document.getElementById('final-exam-bar_percentage');
+  var endTimeElement = document.getElementById('final-exam-end-time');
+
+  var startDate = new Date("2023-09-23T08:00:00").getTime();
+  var endDate = new Date("2024-05-16T07:00:00").getTime();
+  var currentTime = new Date().getTime();
+
+  var remainingTime = endDate - currentTime;
+  var totalTime = endDate - startDate;
+  
+  // Ensure remainingTime is within bounds
+  remainingTime = Math.max(remainingTime, 0);
+  
+  var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
+  var remainingPercentage = 100 - elapsedPercentage;
+
+  var days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+  dayElement.textContent = days;
+  hourElement.textContent = hours;
+  minElement.textContent = minutes;
+  secondElement.textContent = seconds;
+
+  konkurPercentageElement.textContent = remainingPercentage.toFixed(2) + "% از زمان شما باقی مانده";
+  barPercentageElement.style.width = remainingPercentage + "%";
+
+  endTimeElement.textContent = new Date("2024-05-16T07:00:00").toLocaleString();
+
+  if (remainingTime <= 0) {
+    clearInterval(finalExamInterval);
+    dayElement.textContent = 0;
+    hourElement.textContent = 0;
+    minElement.textContent = 0;
+    secondElement.textContent = 0;
+    konkurPercentageElement.textContent = "زمان به پایان رسیده است";
+    barPercentageElement.style.width = "100%";
+  }
+}
+
+var updateInterval = 1000;
+updateOrdibeheshtCountdown();
+var ordibeheshtInterval = setInterval(updateOrdibeheshtCountdown, updateInterval);
+
+updateTirCountdown();
+var tirInterval = setInterval(updateTirCountdown, updateInterval);
+
+var finalExamUpdateInterval = 1000;
+updateFinalExamCountdown();
+var finalExamInterval = setInterval(updateFinalExamCountdown, finalExamUpdateInterval);
+</script>
+</body>
+</html>
