@@ -157,7 +157,6 @@ function updateOrdibeheshtCountdown() {
   var remainingTime = endDate - currentTime;
   var totalTime = endDate - startDate;
   
-  // Ensure remainingTime is within bounds
   remainingTime = Math.max(remainingTime, 0);
   
   var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
@@ -205,7 +204,6 @@ function updateTirCountdown() {
   var remainingTime = endDate - currentTime;
   var totalTime = endDate - startDate;
   
-  // Ensure remainingTime is within bounds
   remainingTime = Math.max(remainingTime, 0);
   
   var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
@@ -253,7 +251,6 @@ function updateFinalExamCountdown() {
   var remainingTime = endDate - currentTime;
   var totalTime = endDate - startDate;
   
-  // Ensure remainingTime is within bounds
   remainingTime = Math.max(remainingTime, 0);
   
   var elapsedPercentage = ((currentTime - startDate) / totalTime) * 100;
