@@ -21,5 +21,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+        run: npm install express
+
       - name: Run OG Image Server Script
         run: node scripts/og-image-server.js a06e7d9232deeae1a0e99c6ac65cc3046bd92613 d92c7d87266ff576a550588f58744a3e361bd57f
